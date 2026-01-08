@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "facturepro_mcp"
+version = "1.0.0"
+description = "Electronic invoice processing & compliance (Peppol, Chorus Pro)"
+readme = "README.md"
+authors = [
+    {name = "IA Business Booster", email = "tech@iabb.eu"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["mcp", "model-context-protocol", "ai", "automation", "finance-comptabilité"]
+
+dependencies = [
+    "mcp>=0.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/IA-Business-Booster/facturepro-mcp"
+Documentation = "https://docs.iabb.eu/facturepro-mcp"
+Repository = "https://github.com/IA-Business-Booster/facturepro-mcp"
+Issues = "https://github.com/IA-Business-Booster/facturepro-mcp/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
