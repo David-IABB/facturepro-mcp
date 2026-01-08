@@ -172,12 +172,11 @@ Please use FacturePro to process this invoice...
 ### Option 1 : Direct
 
 **Contact :** mcp@iabusinessbooster.be
-**Site web :** https://iabb.eu
-**Téléphone :** +32 4XX XX XX XX
+**Site web :** https://www.iabusinessbooster.be
 
 ### Option 2 : Formulaire
 
-1. Visitez : https://iabb.eu/demande-devis
+1. Visitez : https://www.iabusinessbooster.be/contact
 2. Remplissez le formulaire (1 minute)
 3. Recevez votre devis sous 24h
 4. Signez électroniquement
@@ -193,15 +192,15 @@ Please use FacturePro to process this invoice...
 - Solo : €6,500 (vs €7,500 séparés)
 - Pro : €11,000/an ou €975/mois
 
-**Voir :** https://iabb.eu/bundles
+**Voir :** https://www.iabusinessbooster.be/mcp-portfolio.html
 
 ---
 
 ## 📚 Documentation
 
-- **[Full API Docs](https://docs.iabb.eu/facturepro-mcp)**
-- **[Pricing Details](https://iabb.eu/pricing)**
-- **[Installation Guide](https://docs.iabb.eu/facturepro-mcp/install)**
+- **[Full API Docs](https://www.iabusinessbooster.be/docs/facturepro-mcp)**
+- **[Pricing Details](https://www.iabusinessbooster.be/mcp-portfolio.html)**
+- **[Installation Guide](https://www.iabusinessbooster.be/docs/facturepro-mcp/install)**
 - **[Examples](https://github.com/IA-Business-Booster/facturepro-mcp/tree/main/examples)**
 
 ---
@@ -224,11 +223,11 @@ For Pro features, contact us directly.
 
 ## 🏢 About IA Business Booster
 
-[AI-powered automation for European SMEs](https://iabb.eu)
+[AI-powered automation for European SMEs](https://www.iabusinessbooster.be)
 
 ---
 
 **Note:** This repository contains the Lite version only.
 Solo and Pro versions include additional features and support.
 
-See [Pricing](https://iabb.eu/pricing) for details.
+See [Pricing](https://www.iabusinessbooster.be/mcp-portfolio.html) for details.
