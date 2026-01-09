@@ -2,6 +2,8 @@
 
 Electronic invoice processing & compliance (Peppol, Chorus Pro)
 
+> **⚠️ Important Clarification:** FacturePro excels at **RECEIVING** and **PROCESSING** Peppol invoices. For **SENDING** Peppol invoices, see the [Émission Peppol](#-mission-factures-peppol) section below.
+
 ## 🎯 3 Éditions pour Chaque Usage
 
 ### 🆓 LITE (Gratuit - Open Source)
@@ -56,7 +58,7 @@ python -m facturepro_mcp
 - ✅ **Licence annuelle** (renouvellement auto)
 - ✅ Performance : 30x vs Lite
 - ✅ Fonctions : TOUTES + Signal Loop
-- ✅ Peppol Access Point
+- ✅ **Peppol RECEPTION** (parse XML UBL, validation)
 - ✅ Auto-réparation factures
 - ✅ Batch 100+ factures
 - ✅ Validation TVA avancée
@@ -76,7 +78,31 @@ python -m facturepro_mcp
 
 ---
 
-## 📊 Comparaison Détaillée
+### 🚀 PRO + SEND (Annuel - €3,500/an) ⭐
+
+**Pour qui :** Cabinets comptables et PME nécessitant l'émission Peppol
+
+**Caractéristiques (PRO + Émission) :**
+- ✅ **TOUTES les fonctionnalités PRO**
+- ✅ **Tool `sendpeppol` intégré** (envoi automatique)
+- ✅ **B2B Router API setup** (Access Point gratuit)
+- ✅ **Génération UBL automatique**
+- ✅ **Conformité Peppol 2026 complète** (réception + émission)
+- ✅ Support prioritaire émission
+- ✅ Tests sandbox inclus
+
+**Prix :** €3,500/an (PRO €2,500 + Send Addon €1,000)
+
+**Install:**
+```bash
+pip install facturepro-mcp facturepro-core-pro facturepro-send-addon
+export IABB_LICENSE_KEY="IABB-ZZZZZ-ZZZZZ-ZZZZZ"
+python -m facturepro_mcp
+```
+
+---
+
+##  Comparaison Détaillée
 
 | Fonctionnalité | Lite (Gratuit) | Solo (€1,500) | Pro (€2,500/an) |
 |----------------|-----------------|---------------------|---------------------|
@@ -85,7 +111,9 @@ python -m facturepro_mcp
 | **Validation TVA** | Basique | Standard | Avancée |
 | **Exports** | 2 formats | 5 formats | 7+ formats |
 | **Batch** | ❌ | 20 factures | 100+ factures |
-| **Peppol Access Point** | ❌ | ❌ | ✅ |
+| **Peppol RÉCEPTION** | ✅ Basique | ✅ Standard | ✅ Complet |
+| **Peppol ÉMISSION** | ❌ | ❌ | ❌ |
+| **Peppol ÉMISSION (Pro+Send)** | ❌ | ❌ | ✅ |
 | **Auto-réparation** | ❌ | ❌ | ✅ |
 | **Détection anomalies** | ❌ | ❌ | ✅ |
 | **Compliance multi-pays** | ❌ | ❌ | ✅ |
@@ -142,10 +170,20 @@ Please use FacturePro to process this invoice...
 **Choisissez PRO si :**
 - ✅ Cabinet comptable 3-10 personnes
 - ✅ PME avec comptabilité interne
-- ✅ Besoin de Peppol Access Point
+- ✅ Besoin de **RÉCEPTION** Peppol (parse XML, validation)
 - ✅ Support prioritaire important
 - ✅ 100+ factures par mois
 - ✅ Besoin de conformité multi-pays
+
+**Choisissez PRO + SEND si :**
+- ✅ Cabinet comptable 3-10 personnes
+- ✅ PME avec comptabilité interne
+- ✅ Besoin de **RÉCEPTION + ÉMISSION** Peppol complètes
+- ✅ Obligation Peppol 2026 (envoyer factures)
+- ✅ Solution tout-en-un (pas d'AP externe)
+- ✅ Support prioritaire émission
+- ✅ 100+ factures par mois
+- ✅ Conformité multi-pays
 
 ---
 
@@ -164,6 +202,117 @@ Please use FacturePro to process this invoice...
 - **Économie :** 20h × €60 × 52 sem = €62,400/an
 - **Investissement :** €2,500/an
 - **ROI :** 25x
+
+---
+
+## 📥 Réception Factures Peppol
+
+FacturePro excelle dans le traitement des factures **ENTRANTES** :
+
+✅ **`extractpeppolxml`** : Parse XML UBL Peppol reçus
+✅ **`parsepdfinvoice`** : OCR PDF + validation
+✅ **`converttoaccounting`** : Écritures PCMN belges
+✅ **`exporttosoftware`** : Export 7 logiciels comptables
+✅ **Validation** : Peppol BIS 3.0, multi-pays TVA
+✅ **Auto-réparation** : Correction automatique erreurs
+
+**Workflow Réception :**
+```
+Fournisseur → Réseau Peppol → Votre AP → FacturePro (parse/validate/export)
+```
+
+---
+
+## 📤 Émission Factures Peppol
+
+Pour **ÉMETTRE** des factures Peppol (obligatoire 2026), utilisez un Access Point certifié :
+
+### Option 1 : B2B Router (Recommandé - Gratuit)
+
+**Avantages :**
+- ✅ 100% gratuit, illimité
+- ✅ API simple et documentée
+- ✅ Conformité certifiée Peppol
+- ✅ Support en français
+- ✅ Intégration rapide (2h)
+
+**URL :** https://www.b2brouter.net/be/peppol-gratuit/
+
+**Workflow :**
+```
+1. Signup gratuit sur B2B Router
+2. Obtenez API key
+3. FacturePro génère UBL XML (via models)
+4. Envoyez UBL via B2B Router API
+5. Destinataire reçoit via son AP Peppol
+```
+
+**Exemple Code :**
+```python
+import requests
+
+# Générer UBL avec FacturePro
+ubl_xml = facturepro.generate_ubl(invoice_data)
+
+# Envoyer via B2B Router
+response = requests.post(
+    "https://api.b2brouter.net/v1/peppol/send",
+    headers={"Authorization": f"Bearer {B2B_API_KEY}"},
+    json={
+        "document": ubl_xml,
+        "recipient_id": "BE0123456789",
+        "recipient_scheme": "0208",  # BE VAT
+        "document_type": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    }
+)
+
+transmission_id = response.json()["transmission_id"]
+```
+
+### Option 2 : Accountable (Gratuit pour TPE)
+
+**Avantages :**
+- ✅ Gratuit pour TPE (<25 factures/mois)
+- ✅ Interface user-friendly
+- ✅ Support Peppol natif
+
+**URL :** https://www.accountable.eu
+
+### Option 3 : FacturePro Pro + Send (Addon) ⭐
+
+**Solution intégrée** avec tool `sendpeppol` inclus.
+
+**Pricing** : +€1,000/an addon
+
+**Inclus :**
+- ✅ Tool `sendpeppol` (envoi automatique)
+- ✅ B2B Router API setup
+- ✅ Génération UBL automatique
+- ✅ Support prioritaire émission
+- ✅ Tests sandbox inclus
+
+**Contact** : mcp@iabusinessbooster.be
+
+### Workflow Complet (Réception + Émission)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     RÉCEPTION (PRO)                         │
+├─────────────────────────────────────────────────────────────┤
+│ Fournisseur → Peppol → AP → FacturePro → Export Comptable   │
+│                                                             │
+│ ✅ extractpeppolxml  ✅ parsepdfinvoice                     │
+│ ✅ converttoaccounting  ✅ exporttosoftware                 │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                     ÉMISSION (Pro+Send)                     │
+├─────────────────────────────────────────────────────────────┤
+│ Facture → FacturePro → UBL → B2B Router → Peppol → Client  │
+│                                                             │
+│ ✅ generate_ubl  ✅ sendpeppol  ✅ B2B Router API          │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -191,6 +340,7 @@ Please use FacturePro to process this invoice...
 **Bundle Business (5 MCP) :**
 - Solo : €6,500 (vs €7,500 séparés)
 - Pro : €11,000/an ou €975/mois
+- Pro + Send : €12,500/an ou €1,075/mois
 
 **Voir :** https://www.iabusinessbooster.be/mcp-portfolio.html
 
@@ -218,6 +368,7 @@ For Pro features, contact us directly.
 - **Lite:** MIT License (free, open-source)
 - **Solo:** Commercial license (perpetual)
 - **Pro:** Commercial license (annual)
+- **Pro + Send:** Commercial license (annual) includes sendpeppol addon
 
 ---
 
@@ -229,5 +380,7 @@ For Pro features, contact us directly.
 
 **Note:** This repository contains the Lite version only.
 Solo and Pro versions include additional features and support.
+
+**Peppol Compliance:** FacturePro PRO handles Peppol RECEPTION (parsing, validation, export). For Peppol EMISSION, use B2B Router (free) or upgrade to PRO + SEND addon.
 
 See [Pricing](https://www.iabusinessbooster.be/mcp-portfolio.html) for details.
